@@ -32,11 +32,13 @@ public class ProductController {
     public ResponseEntity<Product> createProduct(@RequestBody Product product){
         return ResponseEntity.ok(productService.saveProduct(product));
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product){
         Optional<Product> optionalProduct = productService.updateProduct(id, product);
         return optionalProduct.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id){
         boolean deletionStatus = productService.deleteProduct(id);
